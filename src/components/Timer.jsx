@@ -42,7 +42,7 @@ class Timer extends Component {
 
     if (moment(expireDate) < date) {
       setTimeout(() => {
-        onComplete && onComplete();
+        onComplete && onComplete(); // props로 들어오면 && 뒤의 onComplete()실행
       }, 1000);
       return <div>만료시간입니다. 종료되었습니다.</div>;
     }

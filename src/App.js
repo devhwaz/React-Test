@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import LectureGoalList from "./components/LectureGoalList";
 import Timer from "./components/Timer";
+import "antd/dist/antd.css";
+import Todos from "./components/Todos";
 
 const goals = [
-  "1. react 개발환경에 대한 이해",
-  "2. 새로운 자바스크립트 문법을 익힌다.",
-  "3. 개발 편의를 위한 VSCode IDE를 익힌다."
+  { title: "1. react 개발환경에 대한 이해", completed: true },
+  { title: "2. 새로운 자바스크립트 문법을 익힌다.", completed: true },
+  { title: "3. 개발 편의를 위한 VSCode IDE를 익힌다.", completed: false },
+  { title: "4. 기본적인 Git 사용법을 익힌다", completed: false },
+  { title: "5. PR코드리뷰", completed: true }
 ];
 
 class App extends Component {
@@ -50,7 +53,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <LectureGoalList items={goals} title={"강의목표"} />
+        <Todos items={goals} title={"강의목표"} />
         {isExpired && (
           <Timer
             expireDate={"2018-07-04T16:17:00+09:00"}

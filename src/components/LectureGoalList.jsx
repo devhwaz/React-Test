@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import Todos from ".components/Todos";
 const styles = {
   textAlign: "left",
   padding: "20px",
@@ -29,7 +30,7 @@ const LectureGoalList = props => {
       <div>{props.title}</div>
       <ul style={ulStyles}>
         {props.items.map((item, idx) => {
-          return <TodoListItem key={idx} todoItem={item} />;
+          return <Todos key={idx} item={item} />;
         })}
       </ul>
     </div>
