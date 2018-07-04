@@ -12,7 +12,7 @@ const goals = [
 
 class App extends Component {
   state = {
-    x: 1
+    isExpired: true
   };
   /*
   constructor(props){
@@ -24,14 +24,18 @@ class App extends Component {
   }*/
 
   handleClick = e => {
-    //console.log(this);
-    //console.log(a, b, c);
-    //console.log(arguments);
-
     console.log(e.target);
   };
 
+  handleComplete = () => {
+    //자식이 종료되고 1초 후에..
+    this.setState({ isExpired: false });
+    console.log("타이머로부터 호출받음");
+  };
+
   render() {
+    //const isExpired = moment("2018-07-04T17:00:00+09:00") < moment();
+    const { isExpired } = this.state;
     return (
       <div className="App">
         <header className="App-header">
@@ -47,7 +51,12 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <LectureGoalList items={goals} title={"강의목표"} />
-        <Timer expireDate={"2018-07-04T17:00:00+09:00"} />
+        {isExpired && (
+          <Timer
+            expireDate={"2018-07-04T16:17:00+09:00"}
+            onComplete={this.handleComplete}
+          />
+        )}
       </div>
     );
   }
