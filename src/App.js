@@ -22,8 +22,12 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
   }*/
 
-  handleClick = () => {
-    console.log(this.state.x++);
+  handleClick = e => {
+    //console.log(this);
+    //console.log(a, b, c);
+    //console.log(arguments);
+
+    console.log(e.target);
   };
 
   render() {
