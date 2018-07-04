@@ -29,6 +29,7 @@ class App extends Component {
 
     console.log(e.target);
   };
+    debugger;
 
   render() {
     return (
