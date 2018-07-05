@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Timer from "./components/Timer";
 import "antd/dist/antd.css";
 import Todos from "./components/Todos";
+import Header from "./components/Header";
+import AsyncState from "./components/AsyncState";
 
 const goals = [
   { title: "1. react 개발환경에 대한 이해", completed: true },
@@ -56,15 +57,7 @@ class App extends Component {
     const { isExpired, dateStr } = this.state;
     return (
       <div className="App">
-        <header className="App-header">
-          <img
-            onClick={this.handleClick}
-            src={logo}
-            className="App-logo"
-            alt="logo"
-          />
-          <h1 className="App-title">Welcome to React gggggg</h1>
-        </header>
+        <Header />
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
@@ -79,6 +72,7 @@ class App extends Component {
             onComplete={e => this.handleClick(e)}
           />
         )}
+        <AsyncState />
       </div>
     );
   }
