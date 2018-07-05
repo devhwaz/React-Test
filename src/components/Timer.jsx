@@ -7,10 +7,12 @@ const TIME_FORMAT = "A hh:mm";
 
 class Timer extends Component {
   constructor(props) {
+    console.log("constructor: 타이머 생성");
     super(props); //항상 super를 사용한 뒤에만 this를 사용할 수 있다.
 
     this.state = {
-      date: moment()
+      date: moment(),
+      expireDate: props.expireDate
     };
 
     this.nTimer = setInterval(() => {
@@ -20,6 +22,15 @@ class Timer extends Component {
     }, 1000);
 
     this.TIME_FORMAT = "A ss";
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    //자식생성시 key값을 줄 경우, 라이프사이클에서
+    //마운트를 재진행하므로 아예 새로 그리게 한다.
+    //그러면 이 함수를 사용할 필요가 없다.
+    return {
+      expireDate: props.expireDate
+    };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -36,7 +47,7 @@ class Timer extends Component {
   };
 
   render() {
-    //console.log("render...");
+    console.log("render...");
     const { expireDate, onComplete } = this.props;
     const { date } = this.state;
 
@@ -56,6 +67,8 @@ class Timer extends Component {
   }
 
   componentWillUnmount() {
+    //이와 같이 자식이 key를 받아서 새로 Mount(그리게)하는 것이 좋다.
+    console.log("componentWillUnmount : 타이머 언마운트");
     if (this.nTimer) {
       clearInterval(this.nTimer);
       this.nTimer = null;

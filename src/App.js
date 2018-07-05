@@ -15,16 +15,21 @@ const goals = [
 
 class App extends Component {
   state = {
-    isExpired: true
+    isExpired: true,
+    dateStr: "2018-07-05T18:00:00+09:00"
   };
-  /*
-  constructor(props){
+
+  constructor(props) {
     super(props);
-    this.state= {
-      x : 1
-    }
+    // # 클래스에서 this바인딩하는 방법
+    // 1. function.bind함수를 이용해 직접 바인딩
     this.handleClick = this.handleClick.bind(this);
-  }*/
+  }
+
+  handleClick2 = () => {
+    // # 클래스에서 this바인딩하는 방법
+    // 2. 핸들러 안에서 arrow함수를 이용하는 방법
+  };
 
   handleClick = e => {
     console.log(e.target);
@@ -36,9 +41,17 @@ class App extends Component {
     console.log("타이머로부터 호출받음");
   };
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        dateStr: "2018-07-05T16:00:00+09:00"
+      });
+    }, 5000);
+  }
+
   render() {
     //const isExpired = moment("2018-07-04T17:00:00+09:00") < moment();
-    const { isExpired } = this.state;
+    const { isExpired, dateStr } = this.state;
     return (
       <div className="App">
         <header className="App-header">
@@ -56,8 +69,12 @@ class App extends Component {
         <Todos items={goals} title={"강의목표"} />
         {isExpired && (
           <Timer
-            expireDate={"2018-07-04T16:17:00+09:00"}
-            onComplete={this.handleComplete}
+            key={dateStr}
+            expireDate={dateStr}
+            onComplete={this.handleClick}
+            // # 클래스에서 this바인딩하는 방법
+            // 3. 핸들러 안에서 arrow함수를 이용하는 방법
+            //onComplete={e => this.handleClick(e)}
           />
         )}
       </div>
