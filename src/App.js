@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import axios from "axios";
 import Timer from "./components/Timer";
 //import "antd/dist/antd.css";
 import Todos from "./components/Todos";
@@ -16,6 +17,7 @@ const goals = [
 
 class App extends Component {
   state = {
+    data: [],
     isExpired: true,
     dateStr: "2018-07-05T18:00:00+09:00",
     counter: 0
@@ -43,18 +45,24 @@ class App extends Component {
     console.log("타이머로부터 handleComplete 호출받음");
   };
 
-  componentDidMount() {
-    setInterval(() => {
-      this.setState({
-        count: this.state.count + 1
-      });
-    }, 1000);
+  // componentDidMount() {
+  //   setInterval(() => {
+  //     this.setState({
+  //       count: this.state.count + 1
+  //     });
+  //   }, 1000);
+  // }
+
+  componentDidmount() {
+    axios.get("http://api.tvmaze.com/search/shows?q=girls").then(({ data }) => {
+      this.setState({ data });
+    });
   }
 
   render() {
     //const isExpired = moment("2018-07-04T17:00:00+09:00") < moment();
     console.log("부모 랜더링..");
-    const { isExpired, dateStr } = this.state;
+    const { isExpired, dateStr, data } = this.state;
     return (
       <div className="App">
         <Header />
@@ -73,6 +81,16 @@ class App extends Component {
           />
         )}
         <AsyncState />
+        <ul>
+          {data.map((item, idx) => {
+            console.log(item);
+            return (
+              <li key={idx}>
+                <img src={item.show.url} className="img" alt="locate" />
+              </li>
+            );
+          })}
+        </ul>
       </div>
     );
   }

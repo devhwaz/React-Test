@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "antd": "^3.6.5",
+    "axios": "^0.18.0",
     "babel-plugin-import": "^1.8.0",
     "react-app-rewire-less": "^2.1.2",
     "react-app-rewired": "^1.5.2"
