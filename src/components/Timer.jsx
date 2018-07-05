@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import moment from "moment";
 import "moment/locale/ko";
 moment.locale("ko");
 
 const TIME_FORMAT = "A hh:mm";
 
-class Timer extends Component {
+class Timer extends PureComponent {
   constructor(props) {
     console.log("constructor: 타이머 생성");
     super(props); //항상 super를 사용한 뒤에만 this를 사용할 수 있다.
@@ -15,13 +15,13 @@ class Timer extends Component {
       expireDate: props.expireDate
     };
 
-    this.nTimer = setInterval(() => {
-      this.setState({
-        date: moment()
-      });
-    }, 1000);
+    // this.nTimer = setInterval(() => {
+    //   this.setState({
+    //     date: moment()
+    //   });
+    // }, 1000);
 
-    this.TIME_FORMAT = "A ss";
+    // this.TIME_FORMAT = "A ss";
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -33,21 +33,24 @@ class Timer extends Component {
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (
-      this.state.date.format(TIME_FORMAT) !== nextState.date.format(TIME_FORMAT)
-    )
-      return false;
-    else return true;
-  }
+  // "PURE COMPONENT"를 상속받을 경우 아래의 shoudComponentUpdate함수 없이,
+  // 자동으로 렌더링가능
+  //
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (
+  //     this.state.date.format(TIME_FORMAT) !== nextState.date.format(TIME_FORMAT)
+  //   )
+  //     return false;
+  //   else return true;
+  // }
 
-  handleTick = () => {
-    //console.log(1);
-    this.forceUpdate(); //강제업데이트
-  };
+  // handleTick = () => {
+  //   //console.log(1);
+  //   this.forceUpdate(); //강제업데이트
+  // };
 
   render() {
-    console.log("render...");
+    console.log("자식 Timer render...");
     const { expireDate, onComplete } = this.props;
     const { date } = this.state;
 

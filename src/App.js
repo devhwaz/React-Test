@@ -16,7 +16,8 @@ const goals = [
 class App extends Component {
   state = {
     isExpired: true,
-    dateStr: "2018-07-05T18:00:00+09:00"
+    dateStr: "2018-07-05T18:00:00+09:00",
+    counter: 0
   };
 
   constructor(props) {
@@ -38,19 +39,20 @@ class App extends Component {
   handleComplete = () => {
     //자식이 종료되고 1초 후에..
     this.setState({ isExpired: false });
-    console.log("타이머로부터 호출받음");
+    console.log("타이머로부터 handleComplete 호출받음");
   };
 
   componentDidMount() {
-    setTimeout(() => {
+    setInterval(() => {
       this.setState({
-        dateStr: "2018-07-05T16:00:00+09:00"
+        count: this.state.count + 1
       });
-    }, 5000);
+    }, 1000);
   }
 
   render() {
     //const isExpired = moment("2018-07-04T17:00:00+09:00") < moment();
+    console.log("부모 랜더링..");
     const { isExpired, dateStr } = this.state;
     return (
       <div className="App">
@@ -69,12 +71,12 @@ class App extends Component {
         <Todos items={goals} title={"강의목표"} />
         {isExpired && (
           <Timer
-            key={dateStr}
+            //key={dateStr}
             expireDate={dateStr}
-            onComplete={this.handleClick}
+            //onComplete={this.handleClick2}
             // # 클래스에서 this바인딩하는 방법
             // 3. 핸들러 안에서 arrow함수를 이용하는 방법
-            //onComplete={e => this.handleClick(e)}
+            onComplete={e => this.handleClick(e)}
           />
         )}
       </div>
