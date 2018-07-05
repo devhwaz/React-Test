@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Timer from "./components/Timer";
-import "antd/dist/antd.css";
+//import "antd/dist/antd.css";
 import Todos from "./components/Todos";
 import Header from "./components/Header";
 import AsyncState from "./components/AsyncState";
